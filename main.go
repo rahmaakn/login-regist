@@ -1,14 +1,15 @@
 package main
 
 import (
-	"Final-Project-Engineering-50/Backend/api"
-	"Final-Project-Engineering-50/Backend/repository"
 	"database/sql"
-	
+
+	"backend/api"
+	"backend/repository"
+
 	_ "github.com/mattn/go-sqlite3"
 )
 
-func main(){
+func main() {
 	db, err := sql.Open("sqlite3", "./beasiswa.db")
 	if err != nil {
 		panic(err)
@@ -17,5 +18,5 @@ func main(){
 	userRepo := repository.NewUserRepository(db)
 	aimproveRepo := repository.NewAimproveRepository(db)
 	mainApi := api.NewApi(*userRepo, *aimproveRepo)
-	mainApi.Start() 
+	mainApi.Start()
 }
