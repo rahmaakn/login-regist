@@ -1,15 +1,15 @@
 package main
 
 import (
-	"Final-Project-Engineering-50/Backend/api"
-	"Final-Project-Engineering-50/Backend/repository"
+	"final-project-engineering-50/login-regist/api"
+	"final-project-engineering-50/login-regist/repository"
 	"database/sql"
 	
 	_ "github.com/mattn/go-sqlite3"
 )
 
 func main(){
-	db, err := sql.Open("sqlite3", "./beasiswa.db")
+	db, err := sql.Open("sqlite3", "./aimprove.db")
 	if err != nil {
 		panic(err)
 	}

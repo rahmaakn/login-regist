@@ -73,13 +73,13 @@ func (a *API) getUserById(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	response.User = append(response.User, ListUser{
-		Id :  strconv.Itoa(int(user.Id)),
-		NamaLengkap: user.NamaLengkap,
-		NomorTelpon: user.NomorTelpon,
-		TempatTanggalLahir: user.TempatTanggalLahir,
-		Alamat: user.Alamat,
-		Pendidikan: user.Pendidikan,
-		Email: user.Email,
+		Id :  strconv.Itoa(int(User.Id)),
+		NamaLengkap: User.NamaLengkap,
+		NomorTelpon: User.NomorTelpon,
+		TempatTanggalLahir: User.TempatTanggalLahir,
+		Alamat: User.Alamat,
+		Pendidikan: User.Pendidikan,
+		Email: User.Email,
 		
 	})
 	encoder.Encode(response)

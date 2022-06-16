@@ -1,7 +1,7 @@
 package api
 
 import (
-	"Final-Project-Engineering-50/Backend/repository"
+	"final-project-engineering-50/login-regist/repository"
 	"fmt"
 	"net/http"
 )
@@ -10,6 +10,9 @@ type API struct {
 	mux *http.ServeMux
 	userRepo repository.UserRepository
 	aimproveRepo repository.AimproveRepository
+	//iismaRepo repository.IismaRepository
+	//companyRepo repository.CompanyRepository
+	//fypRepo repository.FypRepository
 }
 
 func NewApi(userRepo repository.UserRepository, aimproveRepo repository.AimproveRepository) *API {
@@ -19,6 +22,7 @@ func NewApi(userRepo repository.UserRepository, aimproveRepo repository.Aimprove
 		mux: mux,
 		userRepo: userRepo,
 		aimproveRepo: aimproveRepo,
+		
 	}
 
 	mux.Handle("/api/login", api.POST(http.HandlerFunc(api.login)))
@@ -29,6 +33,13 @@ func NewApi(userRepo repository.UserRepository, aimproveRepo repository.Aimprove
 	mux.Handle("/api/aimprove", api.GET(http.HandlerFunc(api.getAimprove)))
 	mux.Handle("/api/aimprove/", api.GET(http.HandlerFunc(api.getAimproveById)))
 
+
+	//mux.Handle("/api/iisma", api.GET(http.HandlerFunc(api.getIisma)))
+	//mux.Handle("/api/iisma/", api.GET(http.HandlerFunc(api.getIismaById)))
+	//mux.Handle("/api/company", api.GET(http.HandlerFunc(api.getCompany)))
+	//mux.Handle("/api/company/", api.GET(http.HandlerFunc(api.getCompanyById)))
+	//mux.Handle("/api/fyp", api.GET(http.HandlerFunc(api.getFyp)))
+	//mux.Handle("/api/fyp/", api.GET(http.HandlerFunc(api.getFypById)))
 	return api
 }
 
