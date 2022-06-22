@@ -6,74 +6,70 @@ import (
 	"strconv"
 )
 
-type CampListErrorResponse struct {
+type CartListErrorResponse struct {
 	Error string `json:"error"`
 }
 
-type ListCamp struct {
+type ListCart struct {
 	Id          string     `json:"id"`
-	NamaCamp    string    `json:"nama_camp"`
-	Email       string    `json:"email"`
-	Payment     string    `json:"payment"`
-	Status      string    `json:"status"`
+	Pembayaran    string    `json:"pembayaran"`
+	Motivasi       string    `json:"motivasi"`
 }
 
-type CampListSuccessResponse struct {
-	Camp []ListCamp `json:"camp"`
+type CartListSuccessResponse struct {
+	Cart []ListCart `json:"cart"`
 }
 
-func (a *API) getCamp(w http.ResponseWriter, r *http.Request) {
+func (a *API) getCart(w http.ResponseWriter, r *http.Request) {
 	encoder := json.NewEncoder(w)
 	w.Header().Set("Content-Type", "application/json")
-	response := CampListSuccessResponse{}
-	response.Camp = make([]ListCamp, 0)
+	response := CartListSuccessResponse{}
+	response.Cart = make([]ListCart, 0)
 
-	camp, err := a.campRepo.GetAll()
+	cart, err := a.cartRepo.GetAll()
 	defer func(){
 		if err != nil {
 			w.WriteHeader(http.StatusBadRequest)
-			encoder.Encode(CampListErrorResponse{Error: err.Error()})
+			encoder.Encode(CartListErrorResponse{Error: err.Error()})
 		}
 	}()
 	if err != nil {
 		return
 	}
-	for _, b := range camp {
-		response.Camp = append(response.Camp, ListCamp{
+	for _, b := range cart {
+		response.Cart = append(response.Cart, ListCart{
 			Id: strconv.Itoa(int(b.Id)),
-			NamaCamp : b.NamaCamp,
-			Payment : b.Payment,
-			Status : b.Status,
+			Pembayaran : b.Pembayaran,
+			Motivasi : b.Motivasi,
 		})
 	}
 	
 	encoder.Encode(response)
 }
 
-func (a *API) getCampById(w http.ResponseWriter, r *http.Request) {
+func (a *API) getCartById(w http.ResponseWriter, r *http.Request) {
 	encoder := json.NewEncoder(w)
 	w.Header().Set("Content-Type", "application/json")
-	response :=CampListSuccessResponse{}
-	response.Camp = make([]ListCamp, 0)
+	response :=CartListSuccessResponse{}
+	response.Cart = make([]ListCart, 0)
 
 	id := r.URL.Query().Get("id")
 	idInt, err := strconv.Atoi(id)
 
-	camp, err := a.campRepo.GetById(int64(idInt))
+	camp, err := a.cartRepo.GetById(int64(idInt))
 	defer func(){
 		if err != nil {
 			w.WriteHeader(http.StatusBadRequest)
-			encoder.Encode(CampListErrorResponse{Error: err.Error()})
+			encoder.Encode(CartListErrorResponse{Error: err.Error()})
 		}
 	}()
 	if err != nil {
 		return
 	}
-	response.Camp = append(response.Camp, ListCamp{
+	response.Cart = append(response.Cart, ListCart{
 		Id: strconv.Itoa(int(camp.Id)),
-		NamaCamp : camp.NamaCamp,
-		Payment : camp.Payment,
-		Status : camp.Status,
+		Pembayaran : camp.Pembayaran,
+		Motivasi : camp.Motivasi,
 	})
 	encoder.Encode(response)
 }

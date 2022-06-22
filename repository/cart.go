@@ -2,35 +2,35 @@ package repository
 
 import "database/sql"
 
-type CampRepository struct {
+type CartRepository struct {
 	db *sql.DB
 }
 
-func NewCampRepository(db *sql.DB) *CampRepository {
-	return &CampRepository{db: db}
+func NewCartRepository(db *sql.DB) *CartRepository {
+	return &CartRepository{db: db}
 }
 
-func (r *CampRepository) GetAll() ([]Camp, error) {
-	var camp []Camp
-	rows, err := r.db.Query("SELECT * FROM camp")
+func (r *CartRepository) GetAll() ([]Cart, error) {
+	var cart []Cart
+	rows, err := r.db.Query("SELECT * FROM cart")
 	if err != nil {
 		return nil, err
 	}
 	defer rows.Close()
 	for rows.Next() {
-		var b Camp
-		err := rows.Scan(&b.Id, &b.NamaCamp, &b.Email, &b.Payment, &b.Status)
+		var b Cart
+		err := rows.Scan(&b.Id, &b.Pembayaran, &b.Motivasi)
 		if err != nil {
 			return nil, err
 		}
-		camp = append(camp, b)
+		cart = append(cart, b)
 	}
-	return camp, nil
+	return cart, nil
 }
 
-func (r *CampRepository) GetById(id int64) (Camp, error) {
-	var b Camp
-	err := r.db.QueryRow("SELECT * FROM camp WHERE id = ?", id).Scan(&b.Id, &b.NamaCamp, &b.Email, &b.Payment, &b.Status)
+func (r *CartRepository) GetById(id int64) (Cart, error) {
+	var b Cart
+	err := r.db.QueryRow("SELECT * FROM cart WHERE id = ?", id).Scan(&b.Id, &b.Pembayaran, &b.Motivasi)
 	if err != nil {
 		return b, err
 	}

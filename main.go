@@ -2,8 +2,11 @@ package main
 
 import (
 	"database/sql"
-	"final-project-engineering-50-new/Backend/api"
-	"final-project-engineering-50-new/Backend/repository"
+	"Backend/repository"
+	"Backend/api"
+
+	database
+	
 	
 	_ "github.com/mattn/go-sqlite3"
 )
